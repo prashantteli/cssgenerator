@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+
+<html lang="en">	
+
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link href="css/bootstrap.min.css" rel="stylesheet">
+		<link href="css/custom-style.css" rel="stylesheet">
+		<script src="js/jquery-1.11.1.min.js"></script>
+		<script src="js/bootstrap.min.js"></script>
+		<script>
+			$("document").ready(function(){
+//				alert();			
+			});
+		</script>
+		
+		<style type="text/css">
+			
+			.current{
+				color:red;			
+			}
+							
+			.notShow{
+				display: none;
+				text-align: center;
+			}
+			
+			.pagination>li>a.active{
+				background-color:#eee;			
+			}
+			
+			.pageholder{
+				height:120px;
+				background-color: #c0c0c0;
+				color:#fff;			
+				width:100%;
+				text-align: cneter;
+			}
+		</style>		
+		
+		<title>Bootstrap Template</title>
+		
+	</head>
+	<body class="custom-body">
+		<div class="container">
+			<div class="row">
+				<div class="col-sm-12">
+				
+					<div class="pageholder">
+						<div id="page_1"  class="notShow">1</div>
+						<div id="page_2"  class="notShow">2</div>
+						<div id="page_3"  class="notShow">3</div>
+						<div id="page_4"  class="notShow">4</div>
+						<div id="page_5"  class="notShow">5</div>
+						<div id="page_6"  class="notShow">6</div>
+						<div id="page_7"  class="notShow">7</div>
+						<div id="page_8"  class="notShow">8</div>
+						<div id="page_9"  class="notShow">9</div>
+						<div id="page_10" class="notShow">10</div>
+							
+					</div>	
+
+
+<input type="hidden" id="pageNo" class="" value="0">
+
+
+	<ul class="pagination">
+  		<li><a id="lastPage">&lt;</a></li>
+	</ul>
+				
+				</div>
+			</div> 
+		</div>
+
+<script type="text/javascript">
+
+//Creating pagination
+	var i=0;	
+	$(".notShow").each(function () {
+		i=i+1;
+		$(".pagination").append("<li><a class='page_number' data-href='page_"+(i)+"'>"+i+"</a></li>");
+	});	
+		$(".pagination").append("<li><a id='nextPage'>&gt;</a></li>");
+	
+		//$(".notShow").first().addClass("current").show();
+
+	var j=0;
+//Only Five Page Numbers	
+	
+	$(".page_number").each(function () {
+			j=j+1;
+			if(j==1){
+				$(this).addClass("startOfList");			
+			}
+			if(j==5){
+				$(this).addClass("endOfList");			
+			}
+			if(j>5){
+				$(this).css({
+					'display':'none'
+				});			
+			}
+	});	
+	
+	//alert(i);
+
+
+
+//HideShow Page onclick of pagination
+ var pageCnt=0;
+ 
+ $(".page_number").each(function(){
+                        pageCnt=pageCnt+1;
+                        });
+                     //   alert(pageCnt);
+	$("li>a").click(function () {
+                   
+	 var page=$(this).attr("data-href");
+	  	  	   
+	   $("li>a").removeClass("active");
+	   $(this).addClass("active");
+	   $("#"+page).addClass("current");
+		$("#"+page).show();
+		$("#"+page).nextAll(".notShow").hide().removeClass("current");
+		$("#"+page).prevAll(".notShow").hide().removeClass("current");
+		if($(this).attr("id")=="lastPage" || $(this).attr("id")=="nextPage" )
+		{
+			$("#pageNo").val(0);		
+		}
+		else
+		$("#pageNo").val($(this).text());
+		
+			if($(this).attr("id")=="lastPage")
+			{
+              
+                        //	alert();
+                        $(".current").addClass("old");
+                        $(".current").prev().addClass("current").show();
+                        $(".old").removeClass("current");
+                        $(".old").css("display","none");
+                        $(".notShow").removeClass("old");
+                  
+                    if(parseInt($(".endOfList").text())>5)
+                    {
+                        //Changing first list item
+                        $(".startOfList").addClass("thisPage");
+                        $(".thisPage").removeClass("startOfList");
+                        $(".thisPage").parent().prev().children().addClass("startOfList");
+                        $(".thisPage").show();
+                        $(".page_number").removeClass("thisPage");
+                        $(".startOfList").show();
+                        //Changing Last List Item
+                    
+                        $(".endOfList").addClass("displayNextPage");
+                        $(".displayNextPage").removeClass("endOfList");
+                        $(".displayNextPage").parent().prev().children().addClass("endOfList");
+                        $(".endOfList").parent().next().children().hide();
+                        $(".endOfList").show();
+                        $(".page_number").removeClass("displayNextPage");
+                     }
+           }
+			if($(this).attr("id")=="nextPage")
+			{
+                    
+                    
+                  //  alert(parseInt($(".endOfList").text())+"  "+ pageCnt);
+              // if(parseInt($(".endOfList").text())<pageCnt)
+               // {
+                    //alert($("#nextPage").text()+ "<----> " +$(".endOfList").text());
+                    $(".current").addClass("old");
+                    $(".current").next().addClass("current").show();
+                    $(".old").removeClass("current");
+                    $(".old").css("display","none");
+                    $(".notShow").removeClass("old");
+                 
+                    if(parseInt($(".endOfList").text())<pageCnt)                    {
+                    //Changing first list item
+                    $(".startOfList").addClass("thisPage");
+                    $(".thisPage").removeClass("startOfList");
+                    $(".thisPage").parent().next().children().addClass("startOfList");
+                    $(".thisPage").hide();
+                    $(".page_number").removeClass("thisPage");
+                    
+                    //Changing Last List Item
+				
+					$(".endOfList").addClass("displayNextPage");
+					$(".displayNextPage").removeClass("endOfList");
+					$(".displayNextPage").parent().next().children().addClass("endOfList");		
+					$(".endOfList").show();
+					$(".page_number").removeClass("displayNextPage");				
+                    }
+                //}
+               //else
+                //    alert($(".page_number").last().text());
+                    
+            }
+	});
+	
+	$(".startOfList").click(function(){
+	
+	});
+
+</script>
+
+	</body>
+	
+</html>
