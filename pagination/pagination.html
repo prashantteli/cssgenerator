@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="css/bootstrap.min.css" rel="stylesheet">
+<link href="css/custom-style.css" rel="stylesheet">
+<script src="js/jquery-1.11.1.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script>
+	$("document").ready(function() {
+		//				alert();			
+	});
+</script>
+
+<style type="text/css">
+.current {
+	color: red;
+}
+
+.page {
+	display: none;
+	text-align: center;
+}
+
+.pagination>li>a.active {
+	background-color: #000;
+	color: #fff;
+}
+
+.pageholder {
+	height: 120px;
+	background-color: #1D778D;
+	color: #fff;
+	width: 100%;
+	text-align: center;
+}
+
+#nextPage {
+	/*background:url(page_arrow.png);*/
+	
+}
+
+.page_number:visible{
+
+}
+
+</style>
+
+<title>Bootstrap Template</title>
+
+</head>
+<body class="custom-body">
+	<div class="container">
+		<div class="row">
+			<div class="col-sm-12 paginationContainer">
+
+				<div class="pageholder">
+					<div id="page_1" class="page">1</div>
+					<div id="page_2" class="page">2</div>
+					<div id="page_3" class="page">3</div>
+					<div id="page_4" class="page">4</div>
+					<div id="page_5" class="page">5</div>
+					<div id="page_6" class="page">6</div>
+					<div id="page_7" class="page">7</div>
+					<div id="page_8" class="page">8</div>
+					<div id="page_9" class="page">9</div>
+					<div id="page_10" class="page">10</div>
+					<div id="page_11" class="page">11</div>
+					<div id="page_12" class="page">12</div>
+					<div id="page_13" class="page">13</div>
+					<div id="page_14" class="page">14</div>
+					<div id="page_15" class="page">15</div>
+					<div id="page_16" class="page">16</div>
+					<div id="page_17" class="page">17</div>
+					<div id="page_18" class="page">18</div>
+					<div id="page_19" class="page">19</div>
+					<div id="page_20" class="page">20</div>
+					<div id="page_21" class="page">21</div>
+					<div id="page_22" class="page">22</div>
+					<div id="page_23" class="page">23</div>
+					<div id="page_24" class="page">24</div>
+					<div id="page_25" class="page">25</div>
+					<div id="page_26" class="page">26</div>
+					<div id="page_27" class="page">27</div>
+
+
+				</div>
+
+
+				<input type="hidden" id="pageNo" class="" value="0">
+
+
+				
+
+			</div>
+		</div>
+	</div>
+
+
+	<script>
+    var pagination=function(page,appendTo,showCount,pageNumberClass){
+    	this.page=page;
+    	this.showCount=showCount;
+    	this.pageNumberClass=pageNumberClass;
+    	this.appendTo=appendTo;
+
+
+    };
+
+	pagination.prototype.createList=function(){
+		var mainThis=this;
+		$("."+this.appendTo).append('<ul class="pagination"></ul>');
+		
+		var i=1;
+		$(".pagination").append("<li><a id='prev' >&lt;</a></li>");
+
+		$("."+this.page).each(function(){
+			if(i>mainThis.showCount){
+
+				$(".pagination").append("<li><a class='"+mainThis.pageNumberClass+"' data-target='"+$(this).attr("id")+"' style='display:none;'>"+(i)+"</a></li>")
+			}
+			else{
+				$(".pagination").append("<li><a class='"+mainThis.pageNumberClass+"' data-target='"+$(this).attr("id")+"' >"+(i)+"</a></li>")
+			}
+			i++;
+
+
+		});
+
+		$(".pagination").append("<li><a id='prev' >&gt;</a></li>")
+	};
+
+	pagination.prototype.pageSwitch=function(){
+		var mainThis=this;
+
+		$('.'+mainThis.pageNumberClass).click(function(){
+			$(".page").hide();
+			
+			$('#'+$(this).attr('data-target')).show();
+		});
+
+	}
+
+	
+	</script>
+
+	<script>
+		var p= new pagination('page','paginationContainer',10,'pageNumber');
+		p.createList();
+		p.pageSwitch();
+	</script>	
+
+
+
+	</body>
+
+</html>
