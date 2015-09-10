@@ -1,0 +1,45 @@
+<html>
+<head>
+<style>
+body{
+background-color: #FA5858;
+color:#fff;
+}
+
+</style>
+<script type="text/javascript">
+    function showAndroidToast(toastmsg) {
+        Android.showToast(toastmsg);
+    }
+ function showAndroidDialog(dialogmsg) {
+        Android.showDialog(dialogmsg);
+    }
+ function moveToScreenTwo() {
+        Android.moveToNextScreen();
+    }
+</script>
+</head>
+<body ng-app="myTest" ng-controller="myContr">
+
+<div ng-app="myTest" ng-controller="myContr">
+	<input type="text" ng-model="user.name" ng-bind="user.name" />
+	<input type="text" ng-model="user.city" ng-bind="user.city"/>
+
+	<input type="button" value="Make Toast" onClick="showAndroidToast('Toast made by Javascript :)')" /><br/>
+	<input type="button" value="Trigger Dialog" onClick="showAndroidDialog('This dialog is triggered by Javascript :)')" /><br/>
+	<input type="button" value="Take me to Next Screen" onClick="moveToScreenTwo()" />
+</div>
+<script src="angular.min.js"></script>
+<script>
+ angular.module("myTest",[]);
+ angular.module("myTest",[]).controller("myContr",function($scope){
+ 	$scope.user={
+ 		name:"Prashant",
+ 		city:"Pune"
+ 	}
+
+ });
+
+</script>
+</body>
+</html>
